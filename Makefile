@@ -20,10 +20,10 @@ bootcd.elf : $(OBJS)
 
 
 1ST_READ.BIN : bootcd.bin
-	scramble $< $@
+	scramble $^ $@
 
 bootcd.bin : bootcd.elf
-	sh-elf-objcopy -O binary -R .stack $< $@
+	sh-elf-objcopy -O binary -R .stack $^ $@
 
 IP.BIN : ip.txt
-	makeip $< $@
+	makeip $^ $@
