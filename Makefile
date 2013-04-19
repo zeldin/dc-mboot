@@ -27,3 +27,6 @@ bootcd.bin : bootcd.elf
 
 IP.BIN : ip.txt
 	makeip $^ $@
+
+clean :
+	rm -f $(OBJS) 1ST_READ.BIN IP.BIN bootcd.elf bootcd.bin bootcd.srec
