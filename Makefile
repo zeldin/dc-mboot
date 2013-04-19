@@ -23,7 +23,7 @@ bootcd.elf : $(OBJS)
 	scramble $< $@
 
 bootcd.bin : bootcd.elf
-	sh-elf-objcopy -O binary $< $@
+	sh-elf-objcopy -O binary -R .stack $< $@
 
 IP.BIN : ip.txt
 	makeip $< $@
