@@ -6,8 +6,10 @@ CFLAGS = -O4 -m4-single-only -mhitachi -ffreestanding
 
 OBJS = startup.o main.o vmop.o vmsfs.o cdfs.o syscall.o video.o maple.o serial.o launch.o
 
+all : 1ST_READ.BIN IP.BIN
+
 test : bootcd.elf
-	../../snes9x-dc/dc/ipupload.pike < bootcd.elf
+	ipupload.pike < bootcd.elf
 
 bootcd.srec : $(OBJS)
 	$(CC) -Wl,-Ttext=0x8ce00000,--oformat,srec -o $@ $(CFLAGS) -nostartfiles -nostdlib $(OBJS) -lgcc -lc -lgcc
@@ -18,10 +20,10 @@ bootcd.elf : $(OBJS)
 
 
 1ST_READ.BIN : bootcd.bin
-	../../boot/scramble $< $@
+	scramble $< $@
 
 bootcd.bin : bootcd.elf
 	sh-elf-objcopy -O binary $< $@
 
 IP.BIN : ip.txt
-	IP_TEMPLATE_FILE=../../boot/IP.TMPL ../../boot/makeip $< $@
+	makeip $< $@
